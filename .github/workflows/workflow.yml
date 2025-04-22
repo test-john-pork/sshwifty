@@ -26,6 +26,8 @@ jobs:
           export DOCKER_HUB_USER="${{ secrets.DOCKER_HUB_USERNAME }}"
           export DOCKER_HUB_PASSWORD="${{ secrets.DOCKER_HUB_PASSWORD }}"
           export COVERALLS_TOKEN="${{ secrets.COVERALLS_TOKEN }}"
+          export SSHWIFTY_EXTRA_USER="${{ secrets.SSHWIFTY_EXTRA_USER }}"
+          export SSHWIFTY_EXTRA_USER_PASSWORD="${{ secrets.SSHWIFTY_EXTRA_USER_PASSWORD }}"
 
           export DOCKER_CUSTOM_COMMAND='echo "GitHub Action Build"'
 

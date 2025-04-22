@@ -96,7 +96,7 @@ if [ "$SSHWIFTY_DEPLOY" = 'yes' ]; then
         docker buildx create --use --driver docker-container --name buildx-instance &&
         docker buildx inspect --bootstrap &&
         docker buildx ls &&
-        docker buildx build --tag "$SSHWIFTY_DOCKER_IMAGE_PUSH_TAG" --tag "$SSHWIFTY_DOCKER_IMAGE_PUSH_TAG_LATEST" --platform "$DOCKER_BUILD_TARGETS" --builder buildx-instance --build-arg GOMIPS=softfloat --build-arg CUSTOM_COMMAND="$DOCKER_CUSTOM_COMMAND" --progress plain --push .
+        docker buildx build --tag "$SSHWIFTY_DOCKER_IMAGE_PUSH_TAG" --tag "$SSHWIFTY_DOCKER_IMAGE_PUSH_TAG_LATEST" --platform "$DOCKER_BUILD_TARGETS" --builder buildx-instance --build-arg GOMIPS=softfloat --build-arg CUSTOM_COMMAND="$DOCKER_CUSTOM_COMMAND" --build-arg SSHWIFTY_EXTRA_USER="$SSHWIFTY_EXTRA_USER" --build-arg SSHWIFTY_EXTRA_USER_PASSWORD="$SSHWIFTY_EXTRA_USER_PASSWORD" --progress plain --push .
         ' \
         '
         mkdir -p ./.tmp/generated ./.tmp/release &&

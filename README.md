@@ -313,7 +313,7 @@ Here is all the options of the configuration file:
     {
       "Title": "Endpoint Telnet",
       "Type": "Telnet",
-      "Host": "endpoint.nirui.org:23",
+      "Host": "endpoint.test-john-pork.org:23",
       "Meta": {
         // Data for predefined Encoding field. Valid data is those displayed on
         // the page
@@ -361,6 +361,9 @@ SSHWIFTY_TLSCERTIFICATEKEYFILE
 SSHWIFTY_SERVERMESSAGE
 SSHWIFTY_PRESETS
 SSHWIFTY_ONLYALLOWPRESETREMOTES
+SSHWIFTY_EXTRA_USER
+SSHWIFTY_EXTRA_USER_PASSWORD
+
 ```
 
 These options are correspond to their counterparts in the configuration file.
@@ -442,11 +445,12 @@ computer console.
 ### Local sshd server and account
 
 host: 127.0.0.1
-user: johnpork
-password: Q1w2e3r4
+user: ${SSHWIFTY_EXTRA_USER}
+password: ${SSHWIFTY_EXTRA_USER_PASSWORD}
 
 ## Credits
 
+- Thanks to [Ni Rui](https://github.com/nirui) for base of fork
 - Thanks to [Ryan Fortner](https://github.com/ryanfortner) for the grammar fix
 - Thanks to [Tweak](https://github.com/Tweak4141) for the grammar fix
 - Thanks to [CJendantix](https://github.com/CJendantix) for the grammar and typo 

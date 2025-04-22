@@ -26,11 +26,11 @@ import (
 
 	"golang.org/x/crypto/ssh"
 
-	"github.com/nirui/sshwifty/application/command"
-	"github.com/nirui/sshwifty/application/configuration"
-	"github.com/nirui/sshwifty/application/log"
-	"github.com/nirui/sshwifty/application/network"
-	"github.com/nirui/sshwifty/application/rw"
+	"github.com/test-john-pork/sshwifty/application/command"
+	"github.com/test-john-pork/sshwifty/application/configuration"
+	"github.com/test-john-pork/sshwifty/application/log"
+	"github.com/test-john-pork/sshwifty/application/network"
+	"github.com/test-john-pork/sshwifty/application/rw"
 )
 
 // Server -> client signal Consts

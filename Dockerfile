@@ -46,6 +46,8 @@ RUN set -ex && \
 
 # Build the final image for running
 FROM alpine:latest
+ARG SSHWIFTY_EXTRA_USER= \
+    SSHWIFTY_EXTRA_USER_PASSWORD=
 ENV SSHWIFTY_HOSTNAME= \
     SSHWIFTY_SHAREDKEY= \
     SSHWIFTY_DIALTIMEOUT=10 \
@@ -66,16 +68,21 @@ ENV SSHWIFTY_HOSTNAME= \
     SSHWIFTY_DOCKER_TLSCERTKEY= \
     SSHWIFTY_PRESETS= \
     SSHWIFTY_SERVERMESSAGE= \
-    SSHWIFTY_ONLYALLOWPRESETREMOTES=
+    SSHWIFTY_ONLYALLOWPRESETREMOTES= \
+    SSHWIFTY_EXTRA_USER=${SSHWIFTY_EXTRA_USER} \
+    SSHWIFTY_EXTRA_USER_PASSWORD=${SSHWIFTY_EXTRA_USER_PASSWORD}
 COPY --from=builder /sshwifty /
 COPY . /sshwifty-src
 RUN set -ex && \
     export DEBIAN_FRONTEND=noninteractive && \
-    useradd -ms /bin/bash johnpork && \
-    echo johnpork:Q1w2e3r4 | chpasswd && \
-    apk add openssh && \
-    rc-update add sshd && \
-    service sshd start && \
+    ( if [ -n "$var" ]; then  \
+        useradd -ms /bin/bash "${SSHWIFTY_EXTRA_USER}" && \
+        echo "${SSHWIFTY_EXTRA_USER}:${SSHWIFTY_EXTRA_USER_PASSWORD}" | chpasswd && \
+        apk add openssh && \
+        rc-update add sshd && \
+        service sshd start ; \
+      fi ; \
+    ) ; \
     adduser -D sshwifty && \
     chmod +x /sshwifty && \
     echo '#!/bin/sh' > /sshwifty.sh && echo '([ -z "$SSHWIFTY_DOCKER_TLSCERT" ] || echo "$SSHWIFTY_DOCKER_TLSCERT" > /tmp/cert); ([ -z "$SSHWIFTY_DOCKER_TLSCERTKEY" ] || echo "$SSHWIFTY_DOCKER_TLSCERTKEY" > /tmp/certkey); if [ -f "/tmp/cert" ] && [ -f "/tmp/certkey" ]; then SSHWIFTY_TLSCERTIFICATEFILE=/tmp/cert SSHWIFTY_TLSCERTIFICATEKEYFILE=/tmp/certkey /sshwifty; else /sshwifty; fi;' >> /sshwifty.sh && chmod +x /sshwifty.sh

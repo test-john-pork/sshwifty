@@ -22,7 +22,7 @@ import (
 	"net"
 	"strconv"
 
-	"github.com/nirui/sshwifty/application/rw"
+	"github.com/test-john-pork/sshwifty/application/rw"
 )
 
 // Errors

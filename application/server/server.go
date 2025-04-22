@@ -28,9 +28,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/nirui/sshwifty/application/command"
-	"github.com/nirui/sshwifty/application/configuration"
-	"github.com/nirui/sshwifty/application/log"
+	"github.com/test-john-pork/sshwifty/application/command"
+	"github.com/test-john-pork/sshwifty/application/configuration"
+	"github.com/test-john-pork/sshwifty/application/log"
 )
 
 type dumpWrite struct{}

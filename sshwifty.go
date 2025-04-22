@@ -20,11 +20,11 @@ package main
 import (
 	"os"
 
-	"github.com/nirui/sshwifty/application"
-	"github.com/nirui/sshwifty/application/commands"
-	"github.com/nirui/sshwifty/application/configuration"
-	"github.com/nirui/sshwifty/application/controller"
-	"github.com/nirui/sshwifty/application/log"
+	"github.com/test-john-pork/sshwifty/application"
+	"github.com/test-john-pork/sshwifty/application/commands"
+	"github.com/test-john-pork/sshwifty/application/configuration"
+	"github.com/test-john-pork/sshwifty/application/controller"
+	"github.com/test-john-pork/sshwifty/application/log"
 )
 
 func main() {

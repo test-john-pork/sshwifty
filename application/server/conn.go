@@ -21,7 +21,7 @@ import (
 	"net"
 	"time"
 
-	"github.com/nirui/sshwifty/application/network"
+	"github.com/test-john-pork/sshwifty/application/network"
 )
 
 type listener struct {

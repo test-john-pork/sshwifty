@@ -47,7 +47,7 @@ describe("Common", () => {
         expected: null,
       },
       {
-        sample: "a.ssh.nirui.org",
+        sample: "a.ssh.test-john-pork.org",
         expectingFailure: true,
         expected: null,
       },
@@ -159,7 +159,7 @@ describe("Common", () => {
         expected: null,
       },
       {
-        sample: "a.ssh.nirui.org",
+        sample: "a.ssh.test-john-pork.org",
         expectingFailure: true,
         expected: null,
       },
@@ -188,15 +188,15 @@ describe("Common", () => {
     let tests = [
       // Host name
       {
-        sample: "ssh.nirui.org",
+        sample: "ssh.test-john-pork.org",
         expectedType: "Hostname",
-        expectedAddr: common.strToUint8Array("ssh.nirui.org"),
+        expectedAddr: common.strToUint8Array("ssh.test-john-pork.org"),
         expectedPort: 22,
       },
       {
-        sample: "ssh.nirui.org:22",
+        sample: "ssh.test-john-pork.org:22",
         expectedType: "Hostname",
-        expectedAddr: common.strToUint8Array("ssh.nirui.org"),
+        expectedAddr: common.strToUint8Array("ssh.test-john-pork.org"),
         expectedPort: 22,
       },
 

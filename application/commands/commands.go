@@ -18,7 +18,7 @@
 package commands
 
 import (
-	"github.com/nirui/sshwifty/application/command"
+	"github.com/test-john-pork/sshwifty/application/command"
 )
 
 // New creates a new commands group

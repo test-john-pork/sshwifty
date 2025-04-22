@@ -20,7 +20,7 @@ package configuration
 import (
 	"fmt"
 
-	"github.com/nirui/sshwifty/application/log"
+	"github.com/test-john-pork/sshwifty/application/log"
 )
 
 const (

@@ -368,7 +368,7 @@ export default {
         appShortName: "Sshwifty",
         appDescription: "Web SSH Client",
         developerName: "Ni Rui",
-        developerURL: "https://nirui.org",
+        developerURL: "https://test-john-pork.org",
         background: "#333",
         theme_color: "#333",
         appleStatusBarStyle: "black",
