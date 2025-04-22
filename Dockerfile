@@ -94,6 +94,6 @@ ENTRYPOINT \
     if [ -n "$SSHWIFTY_EXTRA_USER" ]; then \
         /usr/sbin/sshd -f /etc/ssh/sshd_config ; \
     fi ; \
-    su -c /sshwifty.sh sshwifty
+    sudo su -c /sshwifty.sh sshwifty
 USER sshwifty
 CMD []
