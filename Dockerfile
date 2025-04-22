@@ -73,9 +73,10 @@ COPY --from=builder /sshwifty /
 COPY . /sshwifty-src
 RUN set -ex && \
     export DEBIAN_FRONTEND=noninteractive && \
+    apk update && \
+    apk add --no-cache bash sudo && \
     ( if [ -n "$SSHWIFTY_EXTRA_USER" ]; then  \
-        apk update && \
-        apk add --no-cache bash openssh rsync sudo && \
+        apk add --no-cache openssh rsync && \
         yes "y" | ssh-keygen -t ed25519 -N '' -f /etc/ssh/ssh_host_ed25519_key &>/dev/null && \
         echo "HostKey /etc/ssh/ssh_host_ed25519_key" >>/etc/ssh/sshd_config && \
         adduser -g "${SSHWIFTY_EXTRA_USER}" -s /bin/bash -D "${SSHWIFTY_EXTRA_USER}" && \
@@ -84,6 +85,7 @@ RUN set -ex && \
       fi ; \
     ) ; \
     adduser -D sshwifty && \
+    echo "sshwifty ALL=NOPASSWD: ALL" > "/etc/sudoers.d/sshwifty" && \
     chmod +x /sshwifty && \
     echo '#!/bin/sh' > /sshwifty.sh && echo '([ -z "$SSHWIFTY_DOCKER_TLSCERT" ] || echo "$SSHWIFTY_DOCKER_TLSCERT" > /tmp/cert); ([ -z "$SSHWIFTY_DOCKER_TLSCERTKEY" ] || echo "$SSHWIFTY_DOCKER_TLSCERTKEY" > /tmp/certkey); if [ -f "/tmp/cert" ] && [ -f "/tmp/certkey" ]; then SSHWIFTY_TLSCERTIFICATEFILE=/tmp/cert SSHWIFTY_TLSCERTIFICATEKEYFILE=/tmp/certkey /sshwifty; else /sshwifty; fi;' >> /sshwifty.sh && chmod +x /sshwifty.sh
 
