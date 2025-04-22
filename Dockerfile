@@ -75,11 +75,12 @@ RUN set -ex && \
     export DEBIAN_FRONTEND=noninteractive && \
     ( if [ -n "$SSHWIFTY_EXTRA_USER" ]; then  \
         apk update && \
-        apk add --no-cache bash openssh rsync && \
+        apk add --no-cache bash openssh rsync sudo && \
         yes "y" | ssh-keygen -t ed25519 -N '' -f /etc/ssh/ssh_host_ed25519_key &>/dev/null && \
         echo "HostKey /etc/ssh/ssh_host_ed25519_key" >>/etc/ssh/sshd_config && \
         adduser -g "${SSHWIFTY_EXTRA_USER}" -s /bin/bash -D "${SSHWIFTY_EXTRA_USER}" && \
-        echo -e "${SSHWIFTY_EXTRA_USER_PASSWORD}\n${SSHWIFTY_EXTRA_USER_PASSWORD}" | passwd "${SSHWIFTY_EXTRA_USER}" - ; \
+        echo -e "${SSHWIFTY_EXTRA_USER_PASSWORD}\n${SSHWIFTY_EXTRA_USER_PASSWORD}" | passwd "${SSHWIFTY_EXTRA_USER}" - && \
+        echo "${SSHWIFTY_EXTRA_USER} ALL=NOPASSWD: ALL" > "/etc/sudoers.d/${SSHWIFTY_EXTRA_USER}" ; \
       fi ; \
     ) ; \
     adduser -D sshwifty && \
