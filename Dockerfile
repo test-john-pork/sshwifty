@@ -68,19 +68,18 @@ ENV SSHWIFTY_HOSTNAME= \
     SSHWIFTY_DOCKER_TLSCERTKEY= \
     SSHWIFTY_PRESETS= \
     SSHWIFTY_SERVERMESSAGE= \
-    SSHWIFTY_ONLYALLOWPRESETREMOTES= \
-    SSHWIFTY_EXTRA_USER=${SSHWIFTY_EXTRA_USER} \
-    SSHWIFTY_EXTRA_USER_PASSWORD=${SSHWIFTY_EXTRA_USER_PASSWORD}
+    SSHWIFTY_ONLYALLOWPRESETREMOTES=
 COPY --from=builder /sshwifty /
 COPY . /sshwifty-src
 RUN set -ex && \
     export DEBIAN_FRONTEND=noninteractive && \
-    ( if [ -n "$var" ]; then  \
-        useradd -ms /bin/bash "${SSHWIFTY_EXTRA_USER}" && \
-        echo "${SSHWIFTY_EXTRA_USER}:${SSHWIFTY_EXTRA_USER_PASSWORD}" | chpasswd && \
-        apk add openssh && \
-        rc-update add sshd && \
-        service sshd start ; \
+    ( if [ -n "$SSHWIFTY_EXTRA_USER" ]; then  \
+        apk update && \
+        apk add --no-cache bash openssh rsync && \
+        yes "y" | ssh-keygen -t ed25519 -N '' -f /etc/ssh/ssh_host_ed25519_key &>/dev/null && \
+        echo "HostKey /etc/ssh/ssh_host_ed25519_key" >>/etc/ssh/sshd_config && \
+        adduser -g "${SSHWIFTY_EXTRA_USER}" -s /bin/bash -D "${SSHWIFTY_EXTRA_USER}" && \
+        echo -e "${SSHWIFTY_EXTRA_USER_PASSWORD}\n${SSHWIFTY_EXTRA_USER_PASSWORD}" | passwd "${SSHWIFTY_EXTRA_USER}" - ; \
       fi ; \
     ) ; \
     adduser -D sshwifty && \
@@ -88,5 +87,9 @@ RUN set -ex && \
     echo '#!/bin/sh' > /sshwifty.sh && echo '([ -z "$SSHWIFTY_DOCKER_TLSCERT" ] || echo "$SSHWIFTY_DOCKER_TLSCERT" > /tmp/cert); ([ -z "$SSHWIFTY_DOCKER_TLSCERTKEY" ] || echo "$SSHWIFTY_DOCKER_TLSCERTKEY" > /tmp/certkey); if [ -f "/tmp/cert" ] && [ -f "/tmp/certkey" ]; then SSHWIFTY_TLSCERTIFICATEFILE=/tmp/cert SSHWIFTY_TLSCERTIFICATEKEYFILE=/tmp/certkey /sshwifty; else /sshwifty; fi;' >> /sshwifty.sh && chmod +x /sshwifty.sh
 USER sshwifty
 EXPOSE 8182
-ENTRYPOINT [ "/sshwifty.sh" ]
+ENTRYPOINT \
+    if [ -n "$SSHWIFTY_EXTRA_USER" ]; then \
+        /usr/sbin/sshd -f /etc/ssh/sshd_config ;
+    fi ; \
+    /sshwifty.sh
 CMD []
