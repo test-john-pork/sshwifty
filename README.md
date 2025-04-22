@@ -11,7 +11,7 @@ cult. Though, science has proven that the normal AD-free version is sufficient
 for most people. In fact, the majority of people surveyed are annoyed by the
 glare, while the rest showed a little interest)
 
-![Build Status](https://github.com/nirui/sshwifty/workflows/Sshwifty-CI/badge.svg)
+![Build Status](https://github.com/test-john-pork/sshwifty/workflows/Sshwifty-CI/badge.svg)
 
 ## Install
 
@@ -26,7 +26,7 @@ procedure, and we (as the authors and contributors) cannot guarantee to test
 them. If you've encountered unusual failure caused by those executables, feel
 free to open an issue, so we can take a look.
 
-[releases]: https://github.com/nirui/sshwifty/releases
+[releases]: https://github.com/test-john-pork/sshwifty/releases
 
 ### Docker Image (recommended)
 
@@ -42,10 +42,10 @@ $ docker run --detach \
   --restart unless-stopped \
   --publish 8182:8182 \
   --name sshwifty \
-  niruix/sshwifty:latest
+  testjohnpork/sshwifty:latest
 ```
 
-(Note: it's `niruix/sshwifty` with an `x`)
+(Note: it's `testjohnpork/sshwifty` with an `x`)
 
 This will open port `8182` on the Docker host to accept traffic from all
 clients (including remote ones), and serve them with the Sshwifty instance
@@ -70,7 +70,7 @@ $ docker run --detach \
   --env SSHWIFTY_DOCKER_TLSCERT="$(cat domain.crt)" \
   --env SSHWIFTY_DOCKER_TLSCERTKEY="$(cat domain.key)" \
   --name sshwifty \
-  niruix/sshwifty:latest
+  testjohnpork/sshwifty:latest
 ```
 
 The `domain.crt` and `domain.key` in the command above is the location of valid
@@ -96,7 +96,7 @@ code:
 To start the build process, run:
 
 ```shell
-$ git clone https://github.com/nirui/sshwifty
+$ git clone https://github.com/test-john-pork/sshwifty
 $ cd sshwifty
 $ npm install
 $ npm run build
