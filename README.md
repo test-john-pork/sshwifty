@@ -439,6 +439,12 @@ And if that's not enough, connect a physical keyboard through Bluetooth or OTA
 could be a better alternative. This way you can type as if you're using a
 computer console.
 
+### Local sshd server
+
+host: 127.0.0.1
+user: johnpork
+password: Q1w2e3r4
+
 ## Credits
 
 - Thanks to [Ryan Fortner](https://github.com/ryanfortner) for the grammar fix
