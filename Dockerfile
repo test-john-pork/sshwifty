@@ -90,10 +90,10 @@ RUN set -ex && \
     echo '#!/bin/sh' > /sshwifty.sh && echo '([ -z "$SSHWIFTY_DOCKER_TLSCERT" ] || echo "$SSHWIFTY_DOCKER_TLSCERT" > /tmp/cert); ([ -z "$SSHWIFTY_DOCKER_TLSCERTKEY" ] || echo "$SSHWIFTY_DOCKER_TLSCERTKEY" > /tmp/certkey); if [ -f "/tmp/cert" ] && [ -f "/tmp/certkey" ]; then SSHWIFTY_TLSCERTIFICATEFILE=/tmp/cert SSHWIFTY_TLSCERTIFICATEKEYFILE=/tmp/certkey /sshwifty; else /sshwifty; fi;' >> /sshwifty.sh && chmod +x /sshwifty.sh
 
 EXPOSE 8182
+USER root
 ENTRYPOINT \
     if [ -n "$SSHWIFTY_EXTRA_USER" ]; then \
         /usr/sbin/sshd -f /etc/ssh/sshd_config ; \
     fi ; \
-    sudo su -c /sshwifty.sh sshwifty
-USER sshwifty
+    su -c /sshwifty.sh sshwifty
 CMD []
