@@ -445,8 +445,8 @@ computer console.
 ### Local sshd server and account
 
 host: 127.0.0.1
-user: ${SSHWIFTY_EXTRA_USER}
-password: ${SSHWIFTY_EXTRA_USER_PASSWORD}
+user: SSHWIFTY_EXTRA_USER
+password: SSHWIFTY_EXTRA_USER_PASSWORD
 
 ## Credits
 
