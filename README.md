@@ -439,7 +439,7 @@ And if that's not enough, connect a physical keyboard through Bluetooth or OTA
 could be a better alternative. This way you can type as if you're using a
 computer console.
 
-### Local sshd server
+### Local sshd server and account
 
 host: 127.0.0.1
 user: johnpork
