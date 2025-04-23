@@ -92,7 +92,7 @@ RUN set -ex && \
 EXPOSE 8182
 USER root
 ENTRYPOINT \
-    if [ -n "$SSHWIFTY_EXTRA_USER" ]; then \
+    if [ -x "/usr/sbin/sshd" ]; then \
         /usr/sbin/sshd -f /etc/ssh/sshd_config ; \
     fi ; \
     su -c /sshwifty.sh sshwifty
