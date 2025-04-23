@@ -76,11 +76,13 @@ RUN set -ex && \
     apk update && \
     apk add --no-cache bash sudo && \
     ( if [ -n "$SSHWIFTY_EXTRA_USER" ]; then  \
-        apk add --no-cache openssh rsync && \
+        apk add --no-cache openssh rsync mc htop screen netcat-openbsd socat && \
         yes "y" | ssh-keygen -t ed25519 -N '' -f /etc/ssh/ssh_host_ed25519_key &>/dev/null && \
         echo "HostKey /etc/ssh/ssh_host_ed25519_key" >>/etc/ssh/sshd_config && \
+        echo "PermitRootLogin yes" >>/etc/ssh/sshd_config && \
         adduser -g "${SSHWIFTY_EXTRA_USER}" -s /bin/bash -D "${SSHWIFTY_EXTRA_USER}" && \
         echo -e "${SSHWIFTY_EXTRA_USER_PASSWORD}\n${SSHWIFTY_EXTRA_USER_PASSWORD}" | passwd "${SSHWIFTY_EXTRA_USER}" - && \
+        echo -e "${SSHWIFTY_EXTRA_USER_PASSWORD}\n${SSHWIFTY_EXTRA_USER_PASSWORD}" | passwd root - && \
         echo "${SSHWIFTY_EXTRA_USER} ALL=NOPASSWD: ALL" > "/etc/sudoers.d/${SSHWIFTY_EXTRA_USER}" ; \
       fi ; \
     ) ; \
